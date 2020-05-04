@@ -1,4 +1,4 @@
 [nl]&7Change log:
-[nl] [added] &7Support til 1.15.*, 1.14.*
+[nl] [added] &7Support til 1.15.*, 1.14.*, 1.13.*
 [nl] [changed] &7Der var nogle stavefehjl i skriptet.
 [nl] [changed] &7Kode så det virker med 1.13.+
