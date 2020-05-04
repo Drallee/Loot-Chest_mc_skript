@@ -1,0 +1,10 @@
+[nl]&7Change log:
+[nl] [added] &7/lootchest.
+[nl] [added] &7Selv bestemme loot.
+[nl] [added] &7Selv bestemme ventetid.
+[nl] [added] &7Changelogs.
+[nl] [added] &7Ny version besked.
+[nl] [changed] &7Beskeden når man tilføjer en lootchest.
+[nl] [changed] &7Beskeden når man fjerner en lootchest.
+[nl] [changed] &7Beskeden når man åbner en lootchest.
+[nl] [changed] &7Gjort at det kraver permission for at fjerne en loot chest.
