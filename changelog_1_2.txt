@@ -7,4 +7,4 @@
 [nl] [changed] &7Beskeden når man tilføjer en lootchest.
 [nl] [changed] &7Beskeden når man fjerner en lootchest.
 [nl] [changed] &7Beskeden når man åbner en lootchest.
-[nl] [changed] &7Det kraver permission for at fjerne en loot chest.
+[nl] [changed] &7sdsd sdsd sdsd Det kraver permission for at fjerne en loot chest.
