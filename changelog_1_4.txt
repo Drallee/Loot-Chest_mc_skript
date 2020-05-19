@@ -1,0 +1,6 @@
+
+[nl]&7Change log:
+[nl] [added] &7/lc en nemmer måde at åbne lootchest menuen
+[nl] [added] &7/alc en nemmer måde at tilføje lootchests på
+[nl] [added] &7Stats i lootchest menu
+[nl] [changed] &7Work in progress
