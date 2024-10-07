@@ -1,0 +1,413 @@
+function lootchest(p: player, action: text, value: number):
+	if {_action} is "refillminmiumsave":
+		set {LOOTCHEST::REFILL::MIN::TIME} to {_value}
+		send "&2&l============[ &b&lLOOT CHESTS &2&l]============" to {_p}
+		send "" to {_p}
+		send "&aAlt er nu blevet gemt" to {_p}
+		send "" to {_p}
+		send "&2&l============[ &b&lLOOT CHESTS &2&l]============" to {_p}
+		lootchest({_p}, "refilltimers", -1)
+	if {_action} is "refillmaxmiumsave":
+		set {LOOTCHEST::REFILL::MAX::TIME} to {_value}
+		send "&2&l============[ &b&lLOOT CHESTS &2&l]============" to {_p}
+		send "" to {_p}
+		send "&aAlt er nu blevet gemt" to {_p}
+		send "" to {_p}
+		send "&2&l============[ &b&lLOOT CHESTS &2&l]============" to {_p}
+		lootchest({_p}, "refilltimers", -1)
+	if {_action} is "refillmaxmium":
+		set {VALUE::%{_p}%} to {_value}
+		open chest with 6 rows named "&e&lMAXMIUM VENTETID" to {_p}
+		loop numbers between 0 and 53:
+			if loop-number isn't 13:
+				set slot loop-number of {_p}'s current inventory to Gray Glass Pane named " "
+			else:
+				set slot loop-number of {_p}'s current inventory to Red Glass Pane named "&4&lDER OPSTOD EN FEJL!"
+		set slot 13 of {_p}'s current inventory to Clock named "&e&lMAXMIUM VENTETID" with lore "", "&7Nuværende: &c%{_value}% &7Minut(ter)" and " "
+		set slot 45 of {_p}'s current inventory to Arrow named "&c&lTilbage" with lore "", "&7Klik for at komme tilbage uden at gemme" and " "
+		set slot 49 of {_p}'s current inventory to Ender Chest named "&a&lGEM" with lore "", "&7Klik for at gemme" and " "
+		if {_value} is not greater than 59:
+			set slot 28 of {_p}'s current inventory to 1 Light Green Glass Pane with name "&a&lTilføj 1 miunt"
+			set slot 30 of {_p}'s current inventory to 1 Light Green Glass Pane with name "&a&lSæt til 60 miunt"
+		if {_value} is not greater than 50:
+			set slot 29 of {_p}'s current inventory to 1 Light Green Glass Pane with name "&a&lTilføj 10 minutter"
+		if {_value} is not smaller than {LOOTCHEST::REFILL::MIN::TIME} +1:
+			set slot 32 of {_p}'s current inventory to 1 Red Glass Pane with name "&c&lFjern 1 miunt"
+			set slot 34 of {_p}'s current inventory to 1 Red Glass Pane with name "&c&lSæt til %{LOOTCHEST::REFILL::MIN::TIME}% minut(ter)"
+		if {_value} is not smaller than {LOOTCHEST::REFILL::MIN::TIME} +10:
+			set slot 33 of {_p}'s current inventory to 1 Red Glass Pane with name "&c&lFjern 10 minutter"
+	if {_action} is "refillminmium":
+		set {VALUE::%{_p}%} to {_value}
+		open chest with 6 rows named "&e&lMINMIUM VENTETID" to {_p}
+		loop numbers between 0 and 53:
+			if loop-number isn't 13:
+				set slot loop-number of {_p}'s current inventory to Gray Glass Pane named " "
+			else:
+				set slot loop-number of {_p}'s current inventory to Red Glass Pane named "&4&lDER OPSTOD EN FEJL!"
+		set slot 13 of {_p}'s current inventory to Clock named "&e&lMINMIUM VENTETID" with lore "", "&7Nuværende: &c%{_value}% &7Minut(ter)" and " "
+		set slot 45 of {_p}'s current inventory to Arrow named "&c&lTilbage" with lore "", "&7Klik for at komme tilbage uden at gemme" and " "
+		set slot 49 of {_p}'s current inventory to Ender Chest named "&a&lGEM" with lore "", "&7Klik for at gemme" and " "
+		if {_value} is not greater than {LOOTCHEST::REFILL::MAX::TIME} -1:
+			set slot 28 of {_p}'s current inventory to 1 Light Green Glass Pane with name "&a&lTilføj 1 minut"
+			set slot 30 of {_p}'s current inventory to 1 Light Green Glass Pane with name "&a&lSæt til %{LOOTCHEST::REFILL::MAX::TIME}% minut(ter)"
+		if {_value} is not greater than {LOOTCHEST::REFILL::MAX::TIME} -10:
+			set slot 29 of {_p}'s current inventory to 1 Light Green Glass Pane with name "&a&lTilføj 10 minutter"
+		if {_value} is greater than 1:
+			set slot 32 of {_p}'s current inventory to 1 Red Glass Pane with name "&c&lFjern 1 miunt"
+			set slot 34 of {_p}'s current inventory to 1 Red Glass Pane with name "&c&lSæt til 1 miunt"
+		if {_value} is greater than 10:
+			set slot 33 of {_p}'s current inventory to 1 Red Glass Pane with name "&c&lFjern 10 minutter"		
+	if {_action} is "refilltimers":
+		if {_value} is -1:
+			open chest with 3 rows named "&e&lVENTETID" to {_p}
+			loop numbers between 0 and 26:
+				if loop-number isn't 11 or 15:
+					set slot loop-number of {_p}'s current inventory to Gray Glass Pane named " "
+				else:
+					set slot loop-number of {_p}'s current inventory to Red Glass Pane named "&4&lDER OPSTOD EN FEJL!"
+			set slot 11 of {_p}'s current inventory to Clock named "&e&lMINMIUM VENTETID" with lore "", "&7Nuværende: &c%{LOOTCHEST::REFILL::MIN::TIME}% &7Minut(ter)" and " "
+			set slot 15 of {_p}'s current inventory to Clock named "&e&lMAXMIUM VENTETID" with lore "", "&7Nuværende: &c%{LOOTCHEST::REFILL::MAX::TIME}% &7Minut(ter)" and " "
+	if {_action} is "loot":
+		if {_value} is -1:
+			open chest with 3 rows named "&b&lLOOT" to {_p}
+			loop numbers between 0 and 26:
+				if loop-number isn't 10 or 13 or 16:
+					set slot loop-number of {_p}'s current inventory to Gray Glass Pane named " "
+				else:
+					set slot loop-number of {_p}'s current inventory to Red Glass Pane named "&4&lDER OPSTOD EN FEJL!"
+			set slot 10 of {_p}'s current inventory to Chest named "&a&lTIER I"
+			set slot 13 of {_p}'s current inventory to Chest named "&a&lTIER II"
+			set slot 16 of {_p}'s current inventory to Chest named "&a&lTIER III"
+		else if {_value} is 1:
+			wait 3 ticks
+			open chest with 3 rows named "&a&lTIER I" to {_p}
+			set {LOOT::%{_p}%} to true
+			set {LOOT::%{_p}%.TIER} to "I"
+			set {_s} to 0
+			loop 27 times:
+				set slot {_s} of {_p}'s current inventory to {LOOT::I::%{_s}%}
+				add 1 to {_s}
+		else if {_value} is 2:
+			wait 3 ticks
+			open chest with 3 rows named "&a&lTIER II" to {_p}
+			set {LOOT::%{_p}%} to true
+			set {LOOT::%{_p}%.TIER} to "II"
+			set {_s} to 0
+			loop 27 times:
+				set slot {_s} of {_p}'s current inventory to {LOOT::II::%{_s}%}
+				add 1 to {_s}
+		else if {_value} is 3:
+			wait 3 ticks
+			open chest with 3 rows named "&a&lTIER III" to {_p}
+			set {LOOT::%{_p}%} to true
+			set {LOOT::%{_p}%.TIER} to "III"
+			set {_s} to 0
+			loop 27 times:
+				set slot {_s} of {_p}'s current inventory to {LOOT::III::%{_s}%}
+				add 1 to {_s}
+
+#             KOMMANDOER             #
+				
+command /lootchest:
+	permission: setting.lootchest
+	permission message: &6&l! &cDu har ikke adgang til denne kommando &6&l!
+	trigger:
+		set {_rl} to random integer between 1 and 100
+		open chest with 3 rows named "&d&lINDSTILLINGER" to player
+		loop numbers between 0 and 26:
+			if loop-number isn't  10 or 12 or 14 or 16:
+				set slot loop-number of player's current inventory to Gray Glass Pane named " "
+			else:
+				set slot loop-number of player's current inventory to Red Glass Pane named "&4&lDER OPSTOD EN FEJL!"
+		set slot 10 of player's current inventory to Book named "&c&lCHANGELOG" with lore "","&c&nChangelog virker pt ikke...", "" and "&7Klik for at for at se changelog"
+		set {_ver} to text from "https://raw.githubusercontent.com/Drallee/Loot-Chest_mc_skript/master/current_version?%{_rl}%"	
+		if {_ver} isn't "1.3":
+			set slot 12 of player's current inventory to Paper named "&b&lVERSION" with lore "", "&7Version: &c%{_ver}%", "", "&c&l*NY VERSION KAN HENTES*" and ""
+		else:
+			set slot 12 of player's current inventory to Paper named "&b&lVERSION" with lore "", "&7Version: &b1.3", "", "&a&l*INGEN NY VERSION*" and ""
+		if player has permission "lootchest.change.time":
+			if {LOOTCHEST::REFILL::MIN::TIME} is {LOOTCHEST::REFILL::MAX::TIME}:
+				set slot 14 of player's current inventory to Clock named "&e&lVENTETID" with lore "", "&7Ændre tid før spiller kan", "&7åbne loot chest(s) igen", "", "&7Nuværende: &c%{LOOTCHEST::REFILL::MAX::TIME}% &7minut(ter)" and ""
+			else:
+				set slot 14 of player's current inventory to Clock named "&e&lVENTETID" with lore "", "&7Ændre tid før spiller kan", "&7åbne loot chest(s) igen","", "&7Nuværende: &c%{LOOTCHEST::REFILL::MIN::TIME}% &7- &c%{LOOTCHEST::REFILL::MAX::TIME}% &7minut(ter)" and ""
+		else:
+			set slot 14 of player's current inventory to Barrier named "&4&lIKKE ADGANG" with lore "", "&7Du har ikke adgang til dette!" and ""
+		if player has permission "lootchest.change.loot":
+			set slot 16 of player's current inventory to Chest named "&a&lLOOT" with lore "", "&7Udskift de ting man kan få", "&7ved at åbne de forsklige tiers.", "&7Bare ved at trække de ting ind i en", "&7kiste som du vil havde spiller", "&7skal kunne få" and ""
+		else:
+			set slot 16 of player's current inventory to Barrier named "&4&lIKKE ADGANG" with lore "", "&7Du har ikke adgang til dette!" and ""
+		
+command /addlootchest:
+	permission: add.lootchest
+	permission message: &6&l! &cDu har ikke adgang til denne kommando &6&l!
+	trigger:
+		if target block is a chest:
+			if {LC::%location of target block%} is not set:
+				set {LC::%location of target block%} to location of target block
+				send "&2&l============[ &b&lLOOT CHESTS &2&l]============" to player
+				send "" to player
+				send "&aDu har lige tilføjet en &b&lLOOT CHEST" to player
+				send "" to player
+				send "&2&l============[ &b&lLOOT CHESTS &2&l]============" to player
+			else:
+				send "&2&l============[ &b&lLOOT CHESTS &2&l]============" to player
+				send "" to player
+				send "&cDette er allerede en &b&lLOOT CHEST" to player
+				send "" to player
+				send "&2&l============[ &b&lLOOT CHESTS &2&l]============" to player
+		else:
+			send "&2&l============[ &b&lLOOT CHESTS &2&l]============" to player
+			send "" to player
+			send "&cDu kigger ikke på en kiste" to player
+			send "" to player
+			send "&2&l============[ &b&lLOOT CHESTS &2&l]============" to player
+			
+#             ON FUNCTIONER             #
+		
+on break of chest:
+	if player has permission "lootchest.break":
+		if {LC::%location of target block%} is set:
+			delete {LC::FOUND::%{LC::%location of target block%}%}
+			delete {LC::TIMER::%{LC::%location of target block%}%::MIN}
+			delete {LC::TIMER::%{LC::%location of target block%}%::SEC}
+			delete {LC::%location of target block%}
+			send "&2&l============[ &b&lLOOT CHESTS &2&l]============" to player
+			send "" to player
+			send "&cDu har lige fjernet en &b&lLOOT CHEST" to player
+			send "" to player
+			send "&2&l============[ &b&lLOOT CHESTS &2&l]============" to player
+	
+		
+on rightclick on chest:
+	if location of event-block is {LC::%location of event-block%}:
+		if {LC::FOUND::%{LC::%location of event-block%}%} is true:
+			cancel event
+			send action bar "&6&l! &cKom igen om &e%{LC::TIMER::%{LC::%location of event-block%}%::MIN}%M &cog &e%{LC::TIMER::%{LC::%location of event-block%}%::SEC}%S &6&l!" to player
+			send title "" with subtitle "&6&l! &cDenne &eLoot Chest&c er allerede blevet fundet &6&l!" to player for 2.35 seconds
+		else:
+			set {_chance} to random integer between 1 and 100
+			set {_time} to random integer between {LOOTCHEST::REFILL::MIN::TIME} and {LOOTCHEST::REFILL::MAX::TIME}
+			set {_loop_III} to random integer between 2 and 5
+			set {_loop_II} to random integer between 2 and 4
+			set {_loop_I} to random integer between 1 and 2
+			if {_chance} is between 1 and 87:
+				wait 1.5 ticks
+				set {_slot} to 0
+				loop 26 times:
+					set slot {_slot} of the player's current inventory to air
+					add 1 to {_slot}
+				loop {_loop_I} times:
+					set {_var} to random element of {LOOT::I::*}
+					set {_slot} to random number between 0 and 26
+					set slot {_slot} of the player's current inventory to {_var}
+				set {LC::OPENED::%player%} to location of event-block
+				set {LC::TIMER::%{LC::%location of target block%}%::MIN} to {_time}
+				set {LC::TIMER::%{LC::%location of target block%}%::SEC} to 0
+				send "&2&l============[ &b&lLOOT CHESTS &2&l]============" to player
+				send "" to player
+				send "&2Du fandt en &b&lLOOT CHEST &a&lTIER I" to player
+				send "" to player
+				send "&2&l============[ &b&lLOOT CHESTS &2&l]============" to player
+			if {_chance} is between 88 and 98:
+				wait 1.5 ticks
+				set {_slot} to 0
+				loop 26 times:
+					set slot {_slot} of the player's current inventory to air
+					add 1 to {_slot}
+				loop {_loop_II} times:
+					set {_var} to random element of {LOOT::II::*}
+					set {_slot} to random number between 0 and 26
+					set slot {_slot} of the player's current inventory to {_var}
+				set {LC::OPENED::%player%} to location of event-block
+				set {LC::TIMER::%{LC::%location of target block%}%::MIN} to {_time}
+				set {LC::TIMER::%{LC::%location of target block%}%::SEC} to 0
+				send "&2&l============[ &b&lLOOT CHESTS &2&l]============" to player
+				send "" to player
+				send "&2Du fundet en &b&lLOOT CHEST &a&lTIER II" to player
+				send "" to player
+				send "&2&l============[ &b&lLOOT CHESTS &2&l]============" to player
+			if {_chance} is between 99 and 100:
+				wait 1.5 ticks
+				set {_slot} to 0
+				loop 26 times:
+					set slot {_slot} of the player's current inventory to air
+					add 1 to {_slot}
+				loop {_loop_III} times:
+					set {_var} to random element of {LOOT::III::*}
+					set {_slot} to random number between 0 and 26
+					set slot {_slot} of the player's current inventory to {_var}
+				set {LC::OPENED::%player%} to location of event-block
+				set {LC::TIMER::%{LC::%location of target block%}%::MIN} to {_time}
+				set {LC::TIMER::%{LC::%location of target block%}%::SEC} to 0
+				send "&2&l============[ &b&lLOOT CHESTS &2&l]============" to player
+				send "" to player
+				send "&2Du fundet en &b&lLOOT CHEST &a&lTIER III" to player
+				send "" to player
+				send "&2&l============[ &b&lLOOT CHESTS &2&l]============" to player
+		
+on inventory close:
+	if {LOOT::%player%} is set:
+		set {_tier} to {LOOT::%player%.TIER}
+		set {_s} to 0
+		loop 27 times:
+			set {LOOT::%{_tier}%::%{_s}%} to slot {_s} of current inventory of player
+			add 1 to {_s}
+		loop integers between 0 and 26:
+			if {LOOT::%{_tier}%::%loop-integer%} is air:
+				clear {LOOT::%{_tier}%::%loop-integer%} 
+		clear {LOOT::%player%}
+		clear {LOOT::%player%.TIER}
+		wait 3 ticks
+		send "&2&l============[ &b&lLOOT CHESTS &2&l]============" to player
+		send "" to player
+		send "&aAlt loot er nu blevet gemt!" to player
+		send "" to player
+		send "&2&l============[ &b&lLOOT CHESTS &2&l]============" to player
+		lootchest(player, "loot", -1)
+	if {LC::OPENED::%player%} is set:
+		set {_s} to 0
+		loop 27 times:
+			set slot {_s} of the player's current inventory to air
+			add 1 to {_s}
+		set {LC::FOUND::%{LC::%{LC::OPENED::%player%}%}%} to true
+		clear {LC::OPENED::%player%}
+	
+on inventory click:
+	set {_rl} to random integer between 1 and 100
+	if inventory name of current inventory of player is "&d&lINDSTILLINGER":
+		cancel event
+		clicked slot is 10:
+			set {_cl} to colored text from "https://raw.githubusercontent.com/Drallee/Loot-Chest_mc_skript/master/changelog_1_3.txt"
+			replace all "[nl]" with new line in {_cl}
+			replace all "[added]" with "&8[&2+&8]" in {_cl}
+			replace all "[removed]" with "&8[&4-&8]" in {_cl}
+			replace all "[changed]" with "&8[&e*&8]" in {_cl}
+			send "&7%{_cl}%" to player
+		clicked slot is 12:
+			set {_ver} to text from "https://raw.githubusercontent.com/Drallee/Loot-Chest_mc_skript/master/current_version?%{_rl}%"	
+			replace all "." with "_" in {_ver}
+			set {_cl} to colored text from "https://raw.githubusercontent.com/Drallee/Loot-Chest_mc_skript/master/changelog_%{_ver}%.txt"
+			replace all "[nl]" with new line in {_cl}
+			replace all "[added]" with "&8[&2+&8]" in {_cl}
+			replace all "[removed]" with "&8[&4-&8]" in {_cl}
+			replace all "[changed]" with "&8[&e*&8]" in {_cl}
+			send "&7%{_cl}%" to player
+		clicked slot is 14:
+			if player has permission "lootchest.change.time":
+				lootchest(player, "refilltimers", -1)
+		clicked slot is 16:
+			if player has permission "lootchest.change.loot":
+				lootchest(player, "loot", -1)
+	if inventory name of current inventory of player is "&e&lMINMIUM VENTETID":
+		cancel event
+		set {_value} to {VALUE::%player%}
+		if {_value} is not greater than {LOOTCHEST::REFILL::MAX::TIME} -1:
+			clicked slot is 28:
+				lootchest(player, "refillminmium", {_value} +1)
+			clicked slot is 30:
+				lootchest(player, "refillminmium", {LOOTCHEST::REFILL::MAX::TIME})
+		if {_value} is not greater than {LOOTCHEST::REFILL::MAX::TIME} -10:
+			clicked slot is 29:
+				lootchest(player, "refillminmium", {_value} +10)
+		if {_value} is greater than 1:
+			clicked slot is 32:
+				lootchest(player, "refillminmium", {_value} -1)
+			clicked slot is 34:
+				lootchest(player, "refillminmium", 1)
+		if {_value} is greater than 10:
+			clicked slot is 33:
+				lootchest(player, "refillminmium", {_value} -10)
+		clicked slot is 45:
+			lootchest(player, "refilltimers", -1)
+		clicked slot is 49:
+			lootchest(player, "refillminmiumsave", {_value})
+	if inventory name of current inventory of player is "&e&lMAXMIUM VENTETID":
+		cancel event
+		set {_value} to {VALUE::%player%}
+		if {_value} is not greater than 59:
+			clicked slot is 28:
+				lootchest(player, "refillmaxmium", {_value} +1)
+			clicked slot is 30:
+				lootchest(player, "refillmaxmium", 60)
+		if {_value} is not greater than 50:
+			clicked slot is 29:
+				lootchest(player, "refillmaxmium", {_value} +10)
+		if {_value} is not smaller than {LOOTCHEST::REFILL::MIN::TIME} +1:
+			clicked slot is 32:
+				lootchest(player, "refillmaxmium", {_value} -1)
+			clicked slot is 34:
+				lootchest(player, "refillmaxmium", {LOOTCHEST::REFILL::MIN::TIME})
+		if {_value} is not smaller than {LOOTCHEST::REFILL::MIN::TIME} +10:
+			clicked slot is 33:
+				lootchest(player, "refillmaxmium", {_value} -10)
+		clicked slot is 45:
+			lootchest(player, "refilltimers", -1)
+		clicked slot is 49:
+			lootchest(player, "refillmaxmiumsave", {_value})
+	if inventory name of current inventory of player is "&e&lVENTETID":
+		cancel event
+		clicked slot is 11:
+			lootchest(player, "refillminmium", {LOOTCHEST::REFILL::MIN::TIME})
+		clicked slot is 15:
+			lootchest(player, "refillmaxmium", {LOOTCHEST::REFILL::MAX::TIME})
+	if inventory name of current inventory of player is "&b&lLOOT":
+		cancel event
+		clicked slot is 10:
+			lootchest(player, "loot", 1)
+		clicked slot is 13:
+			lootchest(player, "loot", 2)
+		clicked slot is 16:
+			lootchest(player, "loot", 3)
+	
+on load:
+	set {_rl} to random integer between 1 and 100
+	if {LOOTCHEST::REFILL::MAX::TIME} is not set:
+		set {LOOTCHEST::REFILL::MAX::TIME} to 60
+	if {LOOTCHEST::REFILL::MIN::TIME} is not set:
+		set {LOOTCHEST::REFILL::MIN::TIME} to 10
+	loop all players:
+		if loop-player has permission "*":
+			set {_ver} to text from "https://raw.githubusercontent.com/Drallee/Loot-Chest_mc_skript/master/current_version?%{_rl}%"
+			if {_ver} isn't "1.3":
+				wait 1 ticks
+				send "&2&l============[ &b&lLOOT CHESTS &2&l]============" to loop-player
+				send "" to loop-player
+				send "&6Du bruger en gamle version af &b&lLOOT CHESTS" to loop-player
+				send "" to loop-player
+				send "&7Den nye version kan hentes på &cMCSkripts" to loop-player
+				send "" to loop-player
+				send "&3&nhttps://mcskripts.dk/search/skripts/id/385" to loop-player
+				send "" to loop-player
+				send "&2&l============[ &b&lLOOT CHESTS &2&l]============" to loop-player
+			
+on join:
+	set {_rl} to random integer between 1 and 100
+	if player has permission "*":
+		set {_ver} to text from "https://raw.githubusercontent.com/Drallee/Loot-Chest_mc_skript/master/current_version?%{_rl}%"
+		if {_ver} isn't "1.3":
+			wait 30 ticks
+			send "" to player
+			send "&6Du bruger en gamle version af &b&lLOOT CHESTS" to player
+			send "" to player
+			send "&7Den nye version kan hentes på &cMCSkripts" to player
+			send "" to player
+			send "&3&nhttps://mcskripts.dk/search/skripts/id/385" to player
+			send "" to player		
+
+#             NEDTÆLLER             #
+			
+every second:
+	loop {LC::*}:
+		if {LC::FOUND::%loop-value%} is true:
+			if {LC::TIMER::%loop-value%::SEC} is between 1 and 59:
+				remove 1 from {LC::TIMER::%loop-value%::SEC}
+			else:
+				if {LC::TIMER::%loop-value%::MIN} is between 1 and 60:
+					set {LC::TIMER::%loop-value%::SEC} to 59
+					remove 1 from {LC::TIMER::%loop-value%::MIN}
+				else:
+					if {LC::TIMER::%loop-value%::MIN} is 0:
+						if {LC::TIMER::%loop-value%::SEC} is 0:
+							delete {LC::FOUND::%loop-value%}
+							delete {LC::TIMER::%loop-value%::MIN}
+							delete {LC::TIMER::%loop-value%::SEC}
